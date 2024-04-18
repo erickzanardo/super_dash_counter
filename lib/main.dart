@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nes_ui/nes_ui.dart';
-import 'package:super_dash_counter/game/game.dart';
+import 'package:super_dash_counter/home/home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +16,7 @@ class SuperDashCounterApp extends StatelessWidget {
     return MaterialApp(
       title: 'Super Dash Counter',
       theme: flutterNesTheme(),
-      home: const GamePage(),
+      home: const HomePage(),
     );
   }
 }

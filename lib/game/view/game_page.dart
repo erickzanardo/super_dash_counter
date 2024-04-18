@@ -1,10 +1,16 @@
-import 'package:flame/game.dart';
+import 'package:flame/game.dart' hide Route;
 import 'package:flutter/material.dart';
 import 'package:nes_ui/nes_ui.dart';
 import 'package:super_dash_counter/game/game.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({super.key});
+
+  static Route<void> route() {
+    return NesVerticalCloseTransition.route(pageBuilder: (_, __, ___) {
+      return const GamePage();
+    });
+  }
 
   @override
   State<GamePage> createState() => _GamePageState();
@@ -22,9 +28,24 @@ class _GamePageState extends State<GamePage> {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              Text(
-                'Super Dash Counter',
-                style: Theme.of(context).textTheme.titleLarge,
+              Row(
+                children: [
+                  NesButton.icon(
+                    type: NesButtonType.normal,
+                    icon: NesIcons.leftArrowIndicator,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Text(
+                      'Super Dash Counter',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 16),
               NesDropshadow(
