@@ -3,7 +3,7 @@ description: "The classic Flutter Counter example, but with pretty pixels and co
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: '>=3.3.3 <4.0.0'
@@ -30,7 +30,7 @@ flutter:
 
 flutter_launcher_icons:
   android: 'launcher_icon'
-  adaptive_icon_background: '#352b42'
+  adaptive_icon_background: '#1a205c'
   adaptive_icon_foreground: 'android-icon.png'
   ios: true
   image_path: 'icon.png'
