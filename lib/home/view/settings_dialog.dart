@@ -32,16 +32,26 @@ class _SettingsDialogState extends State<SettingsDialog> {
     final isNewPatchAvailableForDownload =
         await shorebirdCodePush.isNewPatchAvailableForDownload();
 
-    print('isNewPatchAvailableForDownload: $isNewPatchAvailableForDownload');
-    final isNewPatchAvailableForInstall =
-        await shorebirdCodePush.isNewPatchReadyToInstall();
-    print('isNewPatchAvailableForInstall: $isNewPatchAvailableForInstall');
-
-    return isNewPatchAvailableForInstall || isNewPatchAvailableForDownload;
+    return isNewPatchAvailableForDownload;
   }
 
   Future<void> _installUpdate() async {
     await shorebirdCodePush.downloadUpdateIfAvailable();
+
+    var retries = 3;
+    bool isNewPatchAvailableForInstall = false;
+
+    while (!isNewPatchAvailableForInstall) {
+      isNewPatchAvailableForInstall =
+          await shorebirdCodePush.isNewPatchReadyToInstall();
+
+      retries--;
+      await Future.delayed(const Duration(milliseconds: 200));
+
+      if (retries == 0) {
+        throw Exception('Failed to install update!');
+      }
+    }
   }
 
   @override
@@ -79,7 +89,17 @@ class _SettingsDialogState extends State<SettingsDialog> {
                           return const NesTerminalLoadingIndicator();
                         }
 
-                        if (snapshot.data == true) {
+                        if (snapshot.hasError) {
+                          return NesButton(
+                            type: NesButtonType.primary,
+                            onPressed: () {
+                              setState(() {
+                                _installUpdateFuture = _installUpdate();
+                              });
+                            },
+                            child: const Text('Try Again'),
+                          );
+                        } else if (!snapshot.hasError) {
                           return const Text(
                             'Updated installed! Restart the app to apply changes.',
                           );
