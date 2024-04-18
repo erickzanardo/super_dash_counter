@@ -31,8 +31,11 @@ class _SettingsDialogState extends State<SettingsDialog> {
   Future<bool> _checkForUpdate() async {
     final isNewPatchAvailableForDownload =
         await shorebirdCodePush.isNewPatchAvailableForDownload();
+
+    print('isNewPatchAvailableForDownload: $isNewPatchAvailableForDownload');
     final isNewPatchAvailableForInstall =
         await shorebirdCodePush.isNewPatchReadyToInstall();
+    print('isNewPatchAvailableForInstall: $isNewPatchAvailableForInstall');
 
     return isNewPatchAvailableForInstall || isNewPatchAvailableForDownload;
   }
@@ -58,7 +61,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
               },
               child: const Text('Check for update!'),
             ),
-          if (_isUpdateAvailable != null && _installUpdateFuture == null)
+          if (_isUpdateAvailable != null)
             FutureBuilder<bool>(
               future: _isUpdateAvailable,
               builder: (context, snapshot) {
@@ -67,32 +70,35 @@ class _SettingsDialogState extends State<SettingsDialog> {
                 }
 
                 if (snapshot.data == true) {
-                  return NesButton(
-                    type: NesButtonType.primary,
-                    onPressed: () {
-                      setState(() {
-                        _installUpdateFuture = _installUpdate();
-                      });
-                    },
-                    child: const Text('Install update!'),
-                  );
-                }
+                  if (_installUpdateFuture != null) {
+                    return FutureBuilder<bool>(
+                      future: _isUpdateAvailable,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const NesTerminalLoadingIndicator();
+                        }
 
-                return const Text('No update available!');
-              },
-            ),
-          if (_installUpdateFuture != null)
-            FutureBuilder<bool>(
-              future: _isUpdateAvailable,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const NesTerminalLoadingIndicator();
-                }
+                        if (snapshot.data == true) {
+                          return const Text(
+                            'Updated installed! Restart the app to apply changes.',
+                          );
+                        }
 
-                if (snapshot.data == true) {
-                  return const Text(
-                    'Updated installed! Restart the app to apply changes.',
-                  );
+                        return const Text('No update available!');
+                      },
+                    );
+                  } else {
+                    return NesButton(
+                      type: NesButtonType.primary,
+                      onPressed: () {
+                        setState(() {
+                          _installUpdateFuture = _installUpdate();
+                        });
+                      },
+                      child: const Text('Install update!'),
+                    );
+                  }
                 }
 
                 return const Text('No update available!');
