@@ -12,7 +12,7 @@ class DashComponent extends PositionComponent
 
   static const walkSpeed = 40;
   static const gravityFactor = 120;
-  static const jumpForce = 52.0;
+  static const jumpForce = 68.0;
 
   late final Sprite _idleSprite;
   late final Sprite _jumpingSprite;
