@@ -7,7 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:super_dash_counter/game/game.dart';
 
 class SuperDashCounterGame extends FlameGame with HasCollisionDetection {
-  final counter = ValueNotifier<int>(0);
+  SuperDashCounterGame({
+    required this.initialCounter,
+  });
+
+  final int initialCounter;
+
+  late final counter = ValueNotifier<int>(initialCounter);
 
   static final gameResolution = Vector2(64, 80);
   static const groundLevel = 0.0;

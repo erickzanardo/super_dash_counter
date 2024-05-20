@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
           NesButton(
             type: NesButtonType.primary,
             onPressed: () {
-              Navigator.of(context).push(GamePage.route());
+              Navigator.of(context).push(GamePage.route(0));
             },
             child: const Text('Lets Count!'),
           ),

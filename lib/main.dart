@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nes_ui/nes_ui.dart';
+import 'package:provider/provider.dart';
 import 'package:super_dash_counter/home/home.dart';
+import 'package:super_dash_counter/repository/repository.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,10 +15,15 @@ class SuperDashCounterApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Super Dash Counter',
-      theme: flutterNesTheme(),
-      home: const HomePage(),
+    return MultiProvider(
+      providers: [
+        Provider(create: (_) => CountRepository()),
+      ],
+      child: MaterialApp(
+        title: 'Super Dash Counter',
+        theme: flutterNesTheme(),
+        home: const HomePage(),
+      ),
     );
   }
 }
