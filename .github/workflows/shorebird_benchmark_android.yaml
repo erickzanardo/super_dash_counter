@@ -26,7 +26,7 @@ jobs:
       - name: 🐦 Setup Shorebird
         run: |
           git clone -b ez.time_debug https://github.com/shorebirdtech/shorebird.git
-          cd shorebird && echo $(pwd)/bin >> ~/.bashrc
+          cd shorebird && echo $(pwd)/bin >> $GITHUB_PATH
 
       - name: 👨🍳 Test and precache shorebird
         run: shorebird doctor
