@@ -35,6 +35,7 @@ jobs:
           flutter pub get
           flutter build appbundle --release --no-pub
           flutter clean
+          flutter pub get
           time flutter build appbundle --release --no-pub
 
       - name: Flutter clean so shorebird release will be on fair terms
