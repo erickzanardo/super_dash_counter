@@ -36,3 +36,6 @@ jobs:
         uses: shorebirdtech/shorebird-release@v0
         with:
           platform: android
+
+      - name: 📊 Stats
+        run: cat $HOME/.shorebird_trace.log
