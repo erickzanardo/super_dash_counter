@@ -55,6 +55,10 @@ jobs:
         with:
           platform: android
 
+      - name: Flutter clean so shorebird release will be on fair terms
+        run: |
+          flutter clean
+
       - name: 🚀 Shorebird Release Again
         uses: shorebirdtech/shorebird-release@v0
         with:
