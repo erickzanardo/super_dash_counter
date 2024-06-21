@@ -33,7 +33,7 @@ jobs:
       - name: Plain Flutter build
         run: |
           flutter pub get
-          flutter build appbundle --release --no-pub
+          time flutter build appbundle --release --no-pub
           flutter clean
           flutter pub get
           time flutter build appbundle --release --no-pub
