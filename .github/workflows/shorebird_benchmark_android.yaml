@@ -1,4 +1,4 @@
-name: Shorebird Push to Deploy Android
+name: Shorebird benchmark Playground
 
 on: workflow_dispatch
 
@@ -6,7 +6,7 @@ env:
   SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
 
 jobs:
-  push_to_deploy_android:
+  benchmark_playground:
     defaults:
       run:
         shell: bash
