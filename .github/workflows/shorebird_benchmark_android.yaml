@@ -28,13 +28,18 @@ jobs:
         with:
           channel: stable
 
+      - name: Plain Flutter build
+        run: |
+          flutter pub get
+          time flutter build appbundle --release --no-pub
+
       - name: 🐦 Setup Shorebird
         run: |
           git clone -b ez.time_debug https://github.com/shorebirdtech/shorebird.git
           cd shorebird && echo $(pwd)/bin >> $GITHUB_PATH
 
-          #      - name: 👨🍳 Test and precache shorebird
-          #        run: shorebird doctor
+      - name: 👨🍳 Test and precache shorebird
+        run: shorebird doctor
 
       - name: 🚀 Shorebird Release
         uses: shorebirdtech/shorebird-release@v0
