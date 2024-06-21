@@ -55,5 +55,10 @@ jobs:
         with:
           platform: android
 
+      - name: 🚀 Shorebird Release Again
+        uses: shorebirdtech/shorebird-release@v0
+        with:
+          platform: android
+
       - name: 📊 Stats
         run: cat .shorebird_trace.log
