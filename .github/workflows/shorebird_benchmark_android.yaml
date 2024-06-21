@@ -23,6 +23,11 @@ jobs:
           echo "${{ secrets.KEYSTORE }}" | base64 --decode > android/secrets/upload-keystore.jks
           echo "${{ secrets.KEY_PROPERTIES }}" > android/key.properties
 
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
       - name: 🐦 Setup Shorebird
         run: |
           git clone -b ez.time_debug https://github.com/shorebirdtech/shorebird.git
