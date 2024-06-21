@@ -37,4 +37,4 @@ jobs:
           platform: android
 
       - name: 📊 Stats
-        run: cat $HOME/.shorebird_trace.log
+        run: cat .shorebird_trace.log
