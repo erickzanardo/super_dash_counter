@@ -32,6 +32,7 @@ jobs:
       # Flutter clean will ensure that we are not using cached build files
       - name: Plain Flutter build
         run: |
+          flutter pub get
           flutter build appbundle --release --no-pub
           flutter clean
           time flutter build appbundle --release --no-pub
