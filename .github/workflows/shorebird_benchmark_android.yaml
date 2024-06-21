@@ -33,6 +33,10 @@ jobs:
           flutter pub get
           time flutter build appbundle --release --no-pub
 
+      - name: Flutter clean so shorebird release will be on fair terms
+        run: |
+          flutter clean
+
       - name: 🐦 Setup Shorebird
         run: |
           git clone -b ez.time_debug https://github.com/shorebirdtech/shorebird.git
