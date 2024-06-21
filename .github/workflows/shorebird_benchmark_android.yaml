@@ -32,7 +32,6 @@ jobs:
         run: shorebird doctor
 
       - name: 🚀 Shorebird Release
-        if: ${{ github.event.created }}
         uses: shorebirdtech/shorebird-release@v0
         with:
           platform: android
