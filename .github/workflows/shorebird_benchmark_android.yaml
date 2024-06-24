@@ -68,4 +68,6 @@ jobs:
           platform: android
 
       - name: 📊 Stats
-        run: cat .shorebird_trace.log
+        run: |
+          cat .shorebird_trace.log
+          cat .shorebird_build_times.log
