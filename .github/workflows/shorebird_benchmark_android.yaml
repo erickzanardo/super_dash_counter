@@ -28,6 +28,9 @@ jobs:
         with:
           channel: stable
 
+      - name: 📦 Cache Flutter
+        run: flutter doctor
+
       # First run will cache everything that needs to be cached
       # Flutter clean will ensure that we are not using cached build files
       - name: Plain Flutter build
@@ -52,6 +55,15 @@ jobs:
 
       - name: 👨🍳 Test and precache shorebird
         run: shorebird doctor
+
+      - name: 🚀 Shorebird Release
+        uses: shorebirdtech/shorebird-release@v0
+        with:
+          platform: android
+
+      - name: Flutter clean so shorebird release will be on fair terms
+        run: |
+          flutter clean
 
       - name: 🚀 Shorebird Release
         uses: shorebirdtech/shorebird-release@v0
