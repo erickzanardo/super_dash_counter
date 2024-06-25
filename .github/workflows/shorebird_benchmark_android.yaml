@@ -41,13 +41,13 @@ jobs:
       - name: Plain Flutter build
         run: |
           flutter pub get
-          dart shorebird/packages/flutter_build_analyzer plain_flutter_1.log flutter build appbundle --release --no-pub -v
+          dart shorebird/packages/flutter_build_analyzer/bin/flutter_build_analyzer.dart plain_flutter_1.log flutter build appbundle --release --no-pub -v
           flutter clean
           flutter pub get
-          dart shorebird/packages/flutter_build_analyzer plain_flutter_2.log flutter build appbundle --release --no-pub -v
+          dart shorebird/packages/flutter_build_analyzer/bin/flutter_build_analyzer.dart plain_flutter_2.log flutter build appbundle --release --no-pub -v
           flutter clean
           flutter pub get
-          dart shorebird/packages/flutter_build_analyzer plain_flutter_3.log flutter build appbundle --release --no-pub -v
+          dart shorebird/packages/flutter_build_analyzer/bin/flutter_build_analyzer.dart plain_flutter_3.log flutter build appbundle --release --no-pub -v
 
       - name: 🚀 Shorebird Release
         uses: shorebirdtech/shorebird-release@v0
