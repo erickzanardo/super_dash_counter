@@ -38,6 +38,10 @@ jobs:
       - name: 👨🍳 Test and precache shorebird
         run: shorebird doctor
 
+      - name: Build analyzer pub get
+        run: |
+          cd shorebird/packages/flutter_build_analyzer && dart pub get
+
       - name: Plain Flutter build
         run: |
           flutter pub get
