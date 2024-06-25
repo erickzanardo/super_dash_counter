@@ -30,24 +30,6 @@ jobs:
 
       - name: 📦 Cache Flutter
         run: flutter doctor
-
-      # First run will cache everything that needs to be cached
-      # Flutter clean will ensure that we are not using cached build files
-      - name: Plain Flutter build
-        run: |
-          flutter pub get
-          time flutter build appbundle --release --no-pub
-          flutter clean
-          flutter pub get
-          time flutter build appbundle --release --no-pub
-          flutter clean
-          flutter pub get
-          time flutter build appbundle --release --no-pub
-
-      - name: Flutter clean so shorebird release will be on fair terms
-        run: |
-          flutter clean
-
       - name: 🐦 Setup Shorebird
         run: |
           git clone -b ez.time_debug https://github.com/shorebirdtech/shorebird.git
@@ -55,6 +37,17 @@ jobs:
 
       - name: 👨🍳 Test and precache shorebird
         run: shorebird doctor
+
+      - name: Plain Flutter build
+        run: |
+          flutter pub get
+          dart shorebird/packages/flutter_build_analyzer plain_flutter_1.log flutter build appbundle --release --no-pub -v
+          flutter clean
+          flutter pub get
+          dart shorebird/packages/flutter_build_analyzer plain_flutter_2.log flutter build appbundle --release --no-pub -v
+          flutter clean
+          flutter pub get
+          dart shorebird/packages/flutter_build_analyzer plain_flutter_3.log flutter build appbundle --release --no-pub -v
 
       - name: 🚀 Shorebird Release
         uses: shorebirdtech/shorebird-release@v0
@@ -65,7 +58,7 @@ jobs:
         run: |
           flutter clean
 
-      - name: 🚀 Shorebird Release
+      - name: 🚀 Shorebird Release 1
         uses: shorebirdtech/shorebird-release@v0
         with:
           platform: android
@@ -83,3 +76,6 @@ jobs:
         run: |
           cat .shorebird_trace.log
           cat .shorebird_build_times.log
+          cat plain_flutter_1.log
+          cat plain_flutter_2.log
+          cat plain_flutter_3.log
