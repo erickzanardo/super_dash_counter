@@ -1,0 +1,34 @@
+name: Shorebird benchmark Playground Simpler
+
+on: workflow_dispatch
+
+env:
+  SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
+
+jobs:
+  benchmark_playground:
+    defaults:
+      run:
+        shell: bash
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v3
+
+      - name: 🔐 Setup Keystore
+        run: |
+          mkdir android/secrets
+          echo "${{ secrets.KEYSTORE }}" | base64 --decode > android/secrets/upload-keystore.jks
+          echo "${{ secrets.KEY_PROPERTIES }}" > android/key.properties
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Plain Flutter build
+        run: |
+          flutter pub get
+          flutter build appbundle --release --no-pub -v
