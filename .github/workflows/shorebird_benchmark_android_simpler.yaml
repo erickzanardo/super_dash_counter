@@ -28,6 +28,9 @@ jobs:
         with:
           channel: stable
 
+      - name: Flutter precache
+        run: flutter precache
+
       - name: Pub get
         run: flutter pub get
 
